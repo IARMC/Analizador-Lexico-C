@@ -38,6 +38,8 @@ tokens = [
     'COMMA', 'PERIOD', 'SEMI', 'COLON',
     # Ellipsis (...)
     'ELLIPSIS',
+    # Preprocess
+    'PREPROCESS'
 ]
 
 # Operators
@@ -116,14 +118,35 @@ t_CHARACTER = r'(L)?\'([^\\\n]|(\\.))*?\''
 # Comment (C-Style)
 def t_COMMENT(t):
     r'/\*(.|\n)*?\*/'
-    t.lexer.lineno += t.value.count('\n')
-    return t
+    t.lexer.lineno += 1
+    # t.lexer.lineno += t.value.count('\n')
+    pass
 
 # Comment (C++-Style)
 def t_CPPCOMMENT(t):
-    r'//.*\n'
+    r'//.*'
     t.lexer.lineno += 1
+    pass
+
+def t_PREPROCESS(t):
+    r'\#include(.)*[<|\"|\'](.*)\.h[>|\"|\']'
     return t
+
+def t_newline(t):
+    r'\n'
+    t.lexer.lineno += len(t.value)
+
+def t_rc(t):
+    r'\r'
+    #t.lexer.lineno += len(t.value)
+
+def t_WS(t):
+    r'\s'
+    pass
+
+def t_error(t):
+    print("Caracter ilegal: %5s " %t.value[0])
+    t.lexer.skip(1)
 
 # Funcion para elegir el archivo de test
 
@@ -159,8 +182,21 @@ fp = codecs.open(test, "r", "utf-8")
 codigo = fp.read()
 fp.close()
 
+analizador = lex.lex()
 
-print(archivo)
+analizador.input(codigo)
+
+save = os.path.dirname(__file__) + "/" + archivo + " - TokenList.txt"
+fs = codecs.open(save, "wb", "utf-8")
+while True:
+    tok = analizador.token()
+    if not tok: 
+        break
+    print(tok)
+    fs.write(str(tok) + "\n")
+
+fs.close()
+
 
 
 
