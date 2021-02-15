@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------
 # AnalizadorLexicoctokens.py
 #
-# 
+# Grupo # 7
 # 
 # ----------------------------------------------------------------------
 
@@ -175,6 +175,7 @@ def buscarFichero(directorio):
         return files[int(numArchivo)-1]
 
 # Seleccion de directorio y archivo
+
 directorio = os.path.dirname(__file__)+"/test/"
 archivo = buscarFichero(directorio)
 test = directorio + archivo
@@ -182,9 +183,13 @@ fp = codecs.open(test, "r", "utf-8")
 codigo = fp.read()
 fp.close()
 
+# Creacion del Lexer
+
 analizador = lex.lex()
 
 analizador.input(codigo)
+
+# Analisis, reconocimiento y guardado de los tokens
 
 save = os.path.dirname(__file__) + "/" + archivo + " - TokenList.txt"
 fs = codecs.open(save, "wb", "utf-8")
