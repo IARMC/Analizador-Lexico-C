@@ -5,8 +5,14 @@
 # 
 # ----------------------------------------------------------------------
 
-# Palabras reservadas
+# Librerías
+import ply.lex as lex
+import re
+import codecs
+import os
+import sys
 
+# Palabras reservadas y tokens
 
 tokens = [
     # Literals (identifier, integer constant, float constant, string constant, char const)
