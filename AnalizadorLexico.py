@@ -141,7 +141,7 @@ def buscarFichero(directorio):
         cont = cont + 1
     
     while respuesta == False:
-        numArchivo = raw_input('\nNumero de archivo para el test:')
+        numArchivo = input('\nNumero de archivo para el test:')
         for file in files:
             if file == files[int(numArchivo)-1]:
                 respuesta = True
@@ -150,6 +150,17 @@ def buscarFichero(directorio):
         print("Archivo elegido: %s " %files[int(numArchivo)-1])
 
         return files[int(numArchivo)-1]
+
+# Seleccion de directorio y archivo
+directorio = os.path.dirname(__file__)+"/test/"
+archivo = buscarFichero(directorio)
+test = directorio + archivo
+fp = codecs.open(test, "r", "utf-8")
+codigo = fp.read()
+fp.close()
+
+
+print(archivo)
 
 
 
