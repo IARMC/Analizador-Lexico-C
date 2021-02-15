@@ -137,7 +137,7 @@ def buscarFichero(directorio):
         ficheros.append(files)
     
     for file in files:
-        print str(cont) + ". " + file
+        print(str(cont) + ". " + file)
         cont = cont + 1
     
     while respuesta == False:
@@ -147,7 +147,9 @@ def buscarFichero(directorio):
                 respuesta = True
                 break
         
-        print "Archivo elegido: %s " %files[int(numArchivo)-1]
+        print("Archivo elegido: %s " %files[int(numArchivo)-1])
 
         return files[int(numArchivo)-1]
+
+
 
