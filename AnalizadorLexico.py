@@ -125,5 +125,29 @@ def t_CPPCOMMENT(t):
     t.lexer.lineno += 1
     return t
 
+# Funcion para elegir el archivo de test
 
+def buscarFichero(directorio):
+    ficheros = []
+    numArchivo = ''
+    respuesta = False
+    cont = 1
+
+    for base, dirs, files in os.walk(directorio):
+        ficheros.append(files)
+    
+    for file in files:
+        print str(cont) + ". " + file
+        cont = cont + 1
+    
+    while respuesta == False:
+        numArchivo = raw_input('\nNumero de archivo para el test:')
+        for file in files:
+            if file == files[int(numArchivo)-1]:
+                respuesta = True
+                break
+        
+        print "Archivo elegido: %s " %files[int(numArchivo)-1]
+
+        return files[int(numArchivo)-1]
 
