@@ -1,11 +1,13 @@
 # ----------------------------------------------------------------------
-# AnalizadorLexicoctokens.py
+# 
+# AnalizadorLexico.py
 #
 # Grupo # 7
 # 
 # ----------------------------------------------------------------------
 
 # Librerías
+
 import ply.lex as lex
 import re
 import codecs
@@ -122,7 +124,6 @@ def t_COMMENT(t):
     # t.lexer.lineno += t.value.count('\n')
     pass
 
-# Comment (C++-Style)
 def t_CPPCOMMENT(t):
     r'//.*'
     t.lexer.lineno += 1
@@ -130,6 +131,10 @@ def t_CPPCOMMENT(t):
 
 def t_PREPROCESS(t):
     r'\#include(.)*[<|\"|\'](.*)\.h[>|\"|\']'
+    return t
+
+def t_TYPE(t):
+    r'int|double|float|char|string|void'
     return t
 
 def t_newline(t):
