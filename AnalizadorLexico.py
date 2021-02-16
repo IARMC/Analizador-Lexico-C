@@ -19,32 +19,32 @@ import sys
 tokens = [
     # Literals (identifier, integer constant, float constant, string constant, char const)
     'ID', 'TYPEID', 'INTEGER', 'FLOAT', 'STRING', 'CHARACTER',
-    # Operators (+,-,*,/,%,|,&,~,^,<<,>>, ||, &&, !, <, <=, >, >=, ==, !=)
+    # Operadores (+,-,*,/,%,|,&,~,^,<<,>>, ||, &&, !, <, <=, >, >=, ==, !=)
     'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'MODULO',
     'OR', 'AND', 'NOT', 'XOR', 'LSHIFT', 'RSHIFT',
     'LOR', 'LAND', 'LNOT',
     'LT', 'LE', 'GT', 'GE', 'EQ', 'NE',
-    # Assignment (=, *=, /=, %=, +=, -=, <<=, >>=, &=, ^=, |=)
+    # Asiganciones (=, *=, /=, %=, +=, -=, <<=, >>=, &=, ^=, |=)
     'EQUALS', 'TIMESEQUAL', 'DIVEQUAL', 'MODEQUAL', 'PLUSEQUAL', 'MINUSEQUAL',
     'LSHIFTEQUAL','RSHIFTEQUAL', 'ANDEQUAL', 'XOREQUAL', 'OREQUAL',
-    # Increment/decrement (++,--)
+    # Incremento/Decremento (++,--)
     'INCREMENT', 'DECREMENT',
-    # Structure dereference (->)
+    # Desreferencias de estruturas (->)
     'ARROW',
-    # Ternary operator (?)
+    # Operador ternario (?)
     'TERNARY',
-    # Delimeters ( ) [ ] { } , . ; :
+    # Delimitadores ( ) [ ] { } , . ; :
     'LPAREN', 'RPAREN',
     'LBRACKET', 'RBRACKET',
     'LBRACE', 'RBRACE',
     'COMMA', 'PERIOD', 'SEMI', 'COLON',
-    # Ellipsis (...)
+    # Elipsis (...)
     'ELLIPSIS',
-    # Preprocess
+    # Preprocesador
     'PREPROCESS'
 ]
 
-# Operators
+# Operadores
 t_PLUS             = r'\+'
 t_MINUS            = r'-'
 t_TIMES            = r'\*'
@@ -66,7 +66,7 @@ t_GE               = r'>='
 t_EQ               = r'=='
 t_NE               = r'!='
 
-# Assignment operators
+# Operadores de asignacion
 t_EQUALS           = r'='
 t_TIMESEQUAL       = r'\*='
 t_DIVEQUAL         = r'/='
@@ -79,17 +79,17 @@ t_ANDEQUAL         = r'&='
 t_OREQUAL          = r'\|='
 t_XOREQUAL         = r'\^='
 
-# Increment/decrement
+# Incremento/decremento
 t_INCREMENT        = r'\+\+'
 t_DECREMENT        = r'--'
 
 # ->
 t_ARROW            = r'->'
 
-# ?
+# Operador ternario
 t_TERNARY          = r'\?'
 
-# Delimeters
+# Delimitadores
 t_LPAREN           = r'\('
 t_RPAREN           = r'\)'
 t_LBRACKET         = r'\['
@@ -102,7 +102,7 @@ t_SEMI             = r';'
 t_COLON            = r':'
 t_ELLIPSIS         = r'\.\.\.'
 
-# Identifiers
+# Identificadores
 t_ID = r'[A-Za-z_][A-Za-z0-9_]*'
 
 # Integer literal
@@ -114,41 +114,48 @@ t_FLOAT = r'((\d+)(\.\d+)(e(\+|-)?(\d+))? | (\d+)e(\+|-)?(\d+))([lL]|[fF])?'
 # String literal
 t_STRING = r'\"([^\\\n]|(\\.))*?\"'
 
-# Character constant 'c' or L'c'
+# Caracteres constantes 'c' or L'c'
 t_CHARACTER = r'(L)?\'([^\\\n]|(\\.))*?\''
 
-# Comment (C-Style)
+# Comentarios (C-Style)
 def t_COMMENT(t):
     r'/\*(.|\n)*?\*/'
     t.lexer.lineno += 1
     # t.lexer.lineno += t.value.count('\n')
     pass
 
+# Comentarios (Cpp-Style)
 def t_CPPCOMMENT(t):
     r'//.*'
     t.lexer.lineno += 1
     pass
 
+# Directivas del preprocesador
 def t_PREPROCESS(t):
     r'\#include(.)*[<|\"|\'](.*)\.h[>|\"|\']'
     return t
 
-def t_TYPE(t):
+# Tipos de datos
+def t_TYPEID(t):
     r'int|double|float|char|string|void'
     return t
 
+# Salto de linea
 def t_newline(t):
     r'\n'
     t.lexer.lineno += len(t.value)
 
+# Retorno de carro
 def t_rc(t):
     r'\r'
     #t.lexer.lineno += len(t.value)
 
+# Espacios (WhiteSpaces)
 def t_WS(t):
     r'\s'
     pass
 
+# Errores
 def t_error(t):
     print("Caracter ilegal: %5s " %t.value[0])
     t.lexer.skip(1)
@@ -169,7 +176,7 @@ def buscarFichero(directorio):
         cont = cont + 1
     
     while respuesta == False:
-        numArchivo = input('\nNumero de archivo para el test:')
+        numArchivo = input('\nNumero de archivo para el test: ')
         for file in files:
             if file == files[int(numArchivo)-1]:
                 respuesta = True
