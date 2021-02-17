@@ -2,7 +2,17 @@
 # 
 # AnalizadorLexico.py
 #
+# ----------------------------------------------------------------------
+# 
+# Tema del proyecto: Creación de Analizador Léxico de Código C en Python
+# 
 # Grupo # 7
+# Integrantes
+# •	Castro Abad Iván
+# •	Macías Urgilés Angélica
+# •	Maquilón Chacha Victor
+# •	Roldán Vanegas José
+# •	Tapia Muñoz Byron
 # 
 # ----------------------------------------------------------------------
 
