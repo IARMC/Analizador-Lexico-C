@@ -51,7 +51,9 @@ tokens = [
     # Elipsis (...)
     'ELLIPSIS',
     # Preprocesador
-    'PREPROCESS'
+    'PREPROCESS',
+    #Keywords
+    'KEYWORDS'
 ]
 
 # Operadores
@@ -111,6 +113,9 @@ t_PERIOD           = r'\.'
 t_SEMI             = r';'
 t_COLON            = r':'
 t_ELLIPSIS         = r'\.\.\.'
+
+#KEYWORDS
+t_KEYWORDS = r'auto|break|case|const|continue|default|do|else|enum|extern|for|goto|if|return|unsigned|signed|sizeof|static|struct|switch|typedef|union|unisgned|while'
 
 # Identificadores
 t_ID = r'[A-Za-z_][A-Za-z0-9_]*'
